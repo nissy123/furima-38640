@@ -35,7 +35,7 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :purchase_record
+- has_one :purchase_record
 
 ## delivery_destination table
 
