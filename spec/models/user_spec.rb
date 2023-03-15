@@ -21,35 +21,60 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank") 
       end
+      it "passwordが半角数字のみの時登録できないこと" do
+        @user.password = "123456"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid") 
+      end
+      it "passwordが半角英語のみの時登録できないこと" do
+        @user.password = "abcdef"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid") 
+      end
       it "passwordがない場合は登録できないこと" do
         @user.password = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank") 
-      end
-      it "encrypted_passwordがない場合は登録できないこと" do
-        @user.encrypted_password = ""
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Encrypted password can't be blank") 
       end
       it "last_nameがない場合は登録できないこと" do
         @user.last_name = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name can't be blank") 
       end
+      it "last_nameが数字の場合は登録できないこと" do
+        @user.last_name = "123456"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name is invalid") 
+      end
       it "last_name_kanaがない場合は登録できないこと" do
         @user.last_name_kana = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name kana can't be blank") 
+      end
+      it "last_name_kanaがひらがな・漢字の場合は登録できないこと" do
+        @user.last_name_kana = "あああ漢字"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name kana is invalid") 
       end
       it "first_nameがない場合は登録できないこと" do
         @user.first_name = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("First name can't be blank") 
       end
+      it "first_nameが数字場合は登録できないこと" do
+        @user.first_name = "123456"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid") 
+      end
       it "first_name_kanaがない場合は登録できないこと" do
         @user.first_name_kana = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("First name kana can't be blank") 
+      end
+      it "first_name_kanaがひらがな・漢字の場合は登録できないこと" do
+        @user.first_name_kana = "あああ漢字"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana is invalid") 
       end
       it "birthdayがない場合は登録できないこと" do
         @user.birthday = ""
@@ -68,6 +93,7 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Email is invalid')
       end
+
       it 'passwordが5文字以下では登録できない' do
         @user.password = '12345'
         @user.password_confirmation = '12345'
