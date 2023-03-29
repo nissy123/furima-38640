@@ -47,7 +47,7 @@ RSpec.describe Product, type: :model do
       it "価格がマイナスの場合保存できない" do
         @product.price = '-1'
         @product.valid?
-        expect(@product.errors.full_messages).to include("Price is invalid")         
+        expect(@product.errors.full_messages).to include("Price must be greater than or equal to 300")         
       end    
 
       it "価格が英語の場合保存できない" do
@@ -81,39 +81,33 @@ RSpec.describe Product, type: :model do
       end
 
       it "カテゴリ-が空の場合と商品は保存できない" do
-        @product.category_id = nil
+        @product.category_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include()
-      end
-
-      it "カテゴリ-が空の場合と商品は保存できない" do
-        @product.category_id = nil
-        @product.valid?
-        expect(@product.errors.full_messages).to include()
+        expect(@product.errors.full_messages).to include("Category can't be blank")
       end
 
       it "商品の状態が空の場合と商品は保存できない" do
-        @product.state_id = nil
+        @product.state_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include()
+        expect(@product.errors.full_messages).to include("State can't be blank")
       end
 
       it "配送料の負担が空の場合と商品は保存できない" do
-        @product.delivery_charge_burden_id = nil
+        @product.delivery_charge_burden_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include()
+        expect(@product.errors.full_messages).to include("Delivery charge burden can't be blank")
       end
 
       it "発送元の地域が空の場合と商品は保存できない" do
-        @product.regional_original_delivery_id = nil
+        @product.regional_original_delivery_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include()
+        expect(@product.errors.full_messages).to include("Regional original delivery can't be blank")
       end
 
       it "発送までの日数が空の場合と商品は保存できない" do
-        @product.days_up_to_delivery_id = nil
+        @product.days_up_to_delivery_id = 1
         @product.valid?
-        expect(@product.errors.full_messages).to include()
+        expect(@product.errors.full_messages).to include("Days up to delivery can't be blank")
       end
 
     end

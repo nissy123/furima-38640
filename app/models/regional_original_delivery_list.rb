@@ -19,5 +19,5 @@ class RegionalOriginalDeliveryList < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :regional_original_deliveries
+  has_many :products
   end

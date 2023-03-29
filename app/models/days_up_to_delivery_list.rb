@@ -8,5 +8,5 @@ class DaysUpToDeliveryList < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :days_up_to_deliveries
+  has_many :products
   end
