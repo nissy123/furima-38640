@@ -12,8 +12,6 @@ RSpec.describe Product, type: :model do
       end
     end
     context "商品が保存できない場合" do
-      it "必須項目がないとツイートは保存できない" do
-      end
       it "商品名が空の場合保存できない" do
         @product.product_name = ''
         @product.valid?
@@ -21,9 +19,9 @@ RSpec.describe Product, type: :model do
       end
 
       it "商品名が41文字以上の場合保存できない" do
-        @product.product_name = 'a * 41'
+        @product.product_name = "a" * 41
         @product.valid?
-        expect(@product.errors.full_messages).to include() 
+        expect(@product.errors.full_messages).to include("Product name is too long (maximum is 40 characters)") 
       end
 
       it "商品の説明が空の場合保存できない" do
@@ -33,9 +31,9 @@ RSpec.describe Product, type: :model do
       end
 
       it "商品の説明が1001文字以上の場合保存できない" do
-        @product.description = 'a * 1001'
+        @product.description = "a" * 1001
         @product.valid?
-        expect(@product.errors.full_messages).to include() 
+        expect(@product.errors.full_messages).to include("Description is too long (maximum is 1000 characters)") 
       end
 
       it "価格が空の場合保存できない" do
