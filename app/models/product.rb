@@ -3,11 +3,11 @@ class Product < ApplicationRecord
   belongs_to :user
   
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :genre
-  belongs_to :days_up_to_delivery_list
-  belongs_to :delivery_charge_burden_list
-  belongs_to :regional_original_delivery_list
-  belongs_to :statelist
+  belongs_to :category
+  belongs_to :days_up_to_delivery
+  belongs_to :delivery_charge_burden
+  belongs_to :regional_original_delivery
+  belongs_to :state
  
   validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
   validates :days_up_to_delivery_id, numericality: { other_than: 1 , message: "can't be blank"}
