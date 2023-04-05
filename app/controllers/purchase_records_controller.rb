@@ -1,5 +1,7 @@
 class PurchaseRecordsController < ApplicationController
   before_action :authenticate_user!, except: :index
+  before_action :set_purchase_record, only: [:index, :create]
+
   def index
     @product = Product.find(params[:item_id])
     @purchase_record_form = PurchaseRecordForm.new
@@ -22,4 +24,10 @@ class PurchaseRecordsController < ApplicationController
     params.require(:purchase_record_form).permit(:prefecture_id, :postal_code, :city, :block, :buildings_name, :phone_number).merge(user_id: current_user.id, product_id: params[:item_id])
   end
   
+  def set_purchase_record
+    @product = Product.find(params[:item_id])
+    if @product.user_id == current_user || @product.purchase_record != nil
+      redirect_to root_path
+    end
+  end
 end
