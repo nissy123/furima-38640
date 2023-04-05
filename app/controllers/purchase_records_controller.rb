@@ -1,5 +1,5 @@
 class PurchaseRecordsController < ApplicationController
-  # before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, except: :index
   def index
     @product = Product.find(params[:item_id])
     @purchase_record_form = PurchaseRecordForm.new
