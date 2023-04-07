@@ -2,12 +2,18 @@ require 'rails_helper'
 
 RSpec.describe PurchaseRecordForm, type: :model do
   before do
-    @purchase_record_form = FactoryBot.build(:purchase_record_form)
+    @product = FactoryBot.create(:product)
+    @user = FactoryBot.create(:user)
+    @purchase_record_form = FactoryBot.build(:purchase_record_form,product_id: @product.id, user_id: @user.id)
   end
 
   describe "配送先の保存" do
     context "配送先の情報が保存できる時" do
       it "必須項目があれば配送先は保存される" do
+        expect(@purchase_record_form).to be_valid
+      end
+      it '建物名が空でも保存できること' do
+        @purchase_record_form.buildings_name = ''
         expect(@purchase_record_form).to be_valid
       end
     end
@@ -59,6 +65,11 @@ RSpec.describe PurchaseRecordForm, type: :model do
       end
       it "電話番号が12桁以上だと保存できない" do
         @purchase_record_form.phone_number = "090111122222"
+        @purchase_record_form.valid?
+        expect(@purchase_record_form.errors.full_messages).to include("Phone number is invalid")  
+      end
+      it "電話番号が9桁以下だと保存できない" do
+        @purchase_record_form.phone_number = "090111122"
         @purchase_record_form.valid?
         expect(@purchase_record_form.errors.full_messages).to include("Phone number is invalid")  
       end

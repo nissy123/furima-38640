@@ -3,12 +3,10 @@ class PurchaseRecordsController < ApplicationController
   before_action :set_purchase_record, only: [:index, :create]
 
   def index
-    @product = Product.find(params[:item_id])
     @purchase_record_form = PurchaseRecordForm.new
   end
 
   def create
-    @product = Product.find(params[:item_id])
     @purchase_record_form = PurchaseRecordForm.new(purchase_records_params)
     if @purchase_record_form.valid?
       pay_item
@@ -27,7 +25,7 @@ class PurchaseRecordsController < ApplicationController
   
   def set_purchase_record
     @product = Product.find(params[:item_id])
-    if @product.user_id != current_user || @product.purchase_record != nil
+    if @product.user_id == current_user || @product.purchase_record != nil
       redirect_to root_path
     end
   end
