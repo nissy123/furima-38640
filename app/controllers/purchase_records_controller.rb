@@ -1,5 +1,5 @@
 class PurchaseRecordsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
   before_action :set_purchase_record, only: [:index, :create]
 
   def index
