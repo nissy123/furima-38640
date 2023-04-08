@@ -25,7 +25,7 @@ class PurchaseRecordsController < ApplicationController
   
   def set_purchase_record
     @product = Product.find(params[:item_id])
-    if @product.user_id == current_user || @product.purchase_record != nil
+    if @product.user_id == current_user.id || @product.purchase_record != nil
       redirect_to root_path
     end
   end
